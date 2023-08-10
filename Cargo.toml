@@ -1,0 +1,23 @@
+[package]
+name = "bili-blocklist-sync"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0", default-features = false, features = [
+    "json",
+    "rustls-tls",
+] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
