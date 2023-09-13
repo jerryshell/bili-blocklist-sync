@@ -80,10 +80,13 @@ async fn get_blocklist(
 }
 
 async fn write_blocklist_to_json_file(blocklist: &HashSet<model::blocklist::Item>) -> Result<()> {
+    let mut blocklist: Vec<&model::blocklist::Item> = Vec::from_iter(blocklist);
+    blocklist.sort_by(|a, b| a.mid.cmp(&b.mid));
+
     let file = File::create("blocklist.json").await?;
     let mut writer = BufWriter::new(file);
     writer
-        .write_all(serde_json::to_string_pretty(blocklist)?.as_bytes())
+        .write_all(serde_json::to_string_pretty(&blocklist)?.as_bytes())
         .await?;
     writer.flush().await?;
     Ok(())

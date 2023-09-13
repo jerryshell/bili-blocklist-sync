@@ -9,11 +9,11 @@ async fn main() {
     let subcmd = args[1].as_str();
 
     match subcmd {
-        "pull" => match bili_blocklist_sync::pull().await {
+        "pull" => match bbs::pull().await {
             Ok(_) => tracing::info!("OK"),
             Err(e) => tracing::error!("{:#?}", e),
         },
-        "push" => match bili_blocklist_sync::push().await {
+        "push" => match bbs::push().await {
             Ok(_) => tracing::info!("OK"),
             Err(e) => tracing::error!("{:#?}", e),
         },

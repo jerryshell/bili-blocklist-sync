@@ -1,23 +1,23 @@
 [package]
-name = "bili-blocklist-sync"
+name = "bbs"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1"
-tracing = "0.1"
-tracing-subscriber = "0.3"
-tokio = { version = "1", features = ["full"] }
-reqwest = { version = "0", default-features = false, features = [
+anyhow = "*"
+tracing = "*"
+tracing-subscriber = "*"
+tokio = { version = "*", features = ["full"] }
+reqwest = { version = "*", default-features = false, features = [
     "json",
     "rustls-tls",
 ] }
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
 
 [profile.release]
-opt-level = "z"
 lto = true
-codegen-units = 1
 strip = true
+opt-level = "z"
 panic = "abort"
+codegen-units = 1
