@@ -2,7 +2,7 @@
 
 用于 bilibili 多个帐号之间的黑名单同步
 
-[blocklist.json](blocklist.json) 收集了包括且不限于：流量营销、故意引战、聪明发言、心理年龄幼稚、恶意转载等帐号
+[blocklist.json](blocklist.json) 收集了包括且不限于：流量营销、剽窃转载、故意引战、政治狂热、个人崇拜、聪明发言、心理年龄幼稚等帐号
 
 ## 使用方法
 
