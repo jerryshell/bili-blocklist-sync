@@ -58,9 +58,13 @@ async fn build_headers(cookie: &model::config::Cookie) -> Result<reqwest::header
 async fn get_blocklist_response(
     client: &reqwest::Client,
     headers: &reqwest::header::HeaderMap,
+    pn: u32,
 ) -> Result<model::blocklist_response::Root> {
+    let url = format!("https://api.bilibili.com/x/relation/blacks?pn={}&ps=50", pn);
+    tracing::info!("url {}", url);
+
     let root = client
-        .get("https://api.bilibili.com/x/relation/blacks?pn=1&ps=1000")
+        .get(url)
         .headers(headers.clone())
         .send()
         .await?
@@ -73,9 +77,10 @@ async fn get_blocklist_response(
 async fn get_blocklist(
     client: &reqwest::Client,
     cookie: &model::config::Cookie,
+    pn: u32,
 ) -> Result<Vec<model::blocklist::Item>> {
     let headers = build_headers(cookie).await?;
-    let blocklist_response = get_blocklist_response(client, &headers).await?;
+    let blocklist_response = get_blocklist_response(client, &headers, pn).await?;
     build_blocklist(&blocklist_response).await
 }
 
@@ -143,8 +148,20 @@ pub async fn pull() -> Result<()> {
 
     let mut blocklist_set = HashSet::new();
     for cookie in &config.cookie_list {
-        let blocklist = get_blocklist(&client, cookie).await?;
-        blocklist_set.extend(blocklist);
+        let mut pn = 1;
+        loop {
+            match get_blocklist(&client, cookie, pn).await {
+                Ok(blocklist) => {
+                    if blocklist.len() > 0 {
+                        blocklist_set.extend(blocklist);
+                    } else {
+                        break;
+                    }
+                }
+                Err(_) => break,
+            }
+            pn += 1;
+        }
     }
 
     write_blocklist_to_json_file(&blocklist_set).await?;
