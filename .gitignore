@@ -1,4 +1,5 @@
 /target
+/dist
 DEVNOTE.md
 my.config.json
 config.json
