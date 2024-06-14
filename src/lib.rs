@@ -1,11 +1,11 @@
 pub mod model;
 
-use std::collections::HashSet;
-
 use anyhow::{anyhow, Result};
+use std::{collections::HashSet, time::Duration};
 use tokio::{
     fs::File,
     io::{AsyncReadExt, AsyncWriteExt, BufWriter},
+    time::sleep,
 };
 
 async fn build_blocklist(
@@ -134,7 +134,7 @@ async fn send_block_request(
         .await?
         .text()
         .await?;
-    println!("{:#?}", res);
+    tracing::info!("{:#?}", res);
 
     Ok(())
 }
@@ -152,7 +152,7 @@ pub async fn pull() -> Result<()> {
         loop {
             match get_blocklist(&client, cookie, pn).await {
                 Ok(blocklist) => {
-                    if blocklist.len() > 0 {
+                    if !blocklist.is_empty() {
                         blocklist_set.extend(blocklist);
                     } else {
                         break;
@@ -181,6 +181,7 @@ pub async fn push() -> Result<()> {
     for cookie in config.cookie_list {
         for blocklist_item in &blocklist_set {
             send_block_request(&client, &cookie, &blocklist_item.mid).await?;
+            sleep(Duration::from_millis(config.sleep_ms)).await;
         }
     }
 

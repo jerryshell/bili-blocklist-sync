@@ -1,4 +1,5 @@
 {
+    "sleep_ms": 1000,
     "cookie_list": [
         {
             "sessdata": "your_sessdata_1",

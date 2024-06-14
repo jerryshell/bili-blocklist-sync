@@ -8,5 +8,6 @@ pub struct Cookie {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Config {
+    pub sleep_ms: u64,
     pub cookie_list: Vec<Cookie>,
 }
