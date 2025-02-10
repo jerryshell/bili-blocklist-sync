@@ -1,6 +1,6 @@
 pub mod model;
 
-use anyhow::{anyhow, Result};
+use anyhow::{Context, Result};
 use std::{collections::HashSet, time::Duration};
 use tokio::{
     fs::File,
@@ -15,7 +15,7 @@ async fn build_blocklist(
         .data
         .as_ref()
         .and_then(|x| x.list.as_ref())
-        .ok_or(anyhow!("blocklist_response has no list"))?;
+        .context("blocklist_response has no list")?;
 
     let result = list
         .iter()
@@ -38,7 +38,7 @@ async fn build_blocklist(
 
 async fn build_headers(cookie: &model::config::Cookie) -> Result<reqwest::header::HeaderMap> {
     let mut headers = reqwest::header::HeaderMap::new();
-    headers.insert("authority", "api.bilibili.com".parse().unwrap());
+    headers.insert("authority", "api.bilibili.com".parse()?);
     headers.insert("accept", "application/json, text/plain, */*".parse()?);
     headers.insert("accept-language", "zh-CN,zh;q=0.9,en;q=0.8".parse()?);
     headers.insert(

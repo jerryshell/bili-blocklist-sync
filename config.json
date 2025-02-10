@@ -1,13 +1,13 @@
 {
-    "sleep_ms": 1000,
-    "cookie_list": [
-        {
-            "sessdata": "your_sessdata_1",
-            "bili_jct": "your_bili_jct_1"
-        },
-        {
-            "sessdata": "your_sessdata_2",
-            "bili_jct": "your_bili_jct_2"
-        }
-    ]
+  "sleep_ms": 1000,
+  "cookie_list": [
+    {
+      "sessdata": "your_sessdata_1",
+      "bili_jct": "your_bili_jct_1"
+    },
+    {
+      "sessdata": "your_sessdata_2",
+      "bili_jct": "your_bili_jct_2"
+    }
+  ]
 }
