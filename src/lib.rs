@@ -23,7 +23,7 @@ async fn build_blocklist(
             let mid = x.mid.unwrap_or(-1).to_string();
             let uname = x.uname.clone().unwrap_or("".to_string());
             let face = x.face.clone().unwrap_or("".to_string());
-            let space_url = format!("https://space.bilibili.com/{}", mid);
+            let space_url = format!("https://space.bilibili.com/{mid}");
             model::blocklist::Item {
                 mid,
                 uname,
@@ -60,7 +60,7 @@ async fn get_blocklist_response(
     headers: &reqwest::header::HeaderMap,
     pn: u32,
 ) -> Result<model::blocklist_response::Root> {
-    let url = format!("https://api.bilibili.com/x/relation/blacks?pn={}&ps=50", pn);
+    let url = format!("https://api.bilibili.com/x/relation/blacks?pn={pn}&ps=50");
     tracing::info!("url {}", url);
 
     let root = client

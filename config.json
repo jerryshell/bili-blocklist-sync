@@ -2,12 +2,8 @@
   "sleep_ms": 1000,
   "cookie_list": [
     {
-      "sessdata": "your_sessdata_1",
-      "bili_jct": "your_bili_jct_1"
-    },
-    {
-      "sessdata": "your_sessdata_2",
-      "bili_jct": "your_bili_jct_2"
+      "sessdata": "2f675b62%2C1769627182%2C37014%2A82CjCzneSSTossDh6ifLsIaQyegsMK4AENIlOhDDB7IqcF4Z3NA48QiwDvmUGSe8ZbTy0SVmN5QXZLQU1NQktOdGJYR2syNGZZcGtTUXZDX2VTWk9mb3VsSkFJVloyOWM1eTEtdXU2aG43QWVNUjRGRUV3ZmZ6Wm4xOUxKdFdlakIxRG1UYUN0S0JBIIEC",
+      "bili_jct": "999fb66c983af05e013fffd973bf8401"
     }
   ]
 }
